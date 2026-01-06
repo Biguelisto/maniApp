@@ -1,19 +1,25 @@
-const { app, BrowserWindow, Menu } = require('electron')
-
-const createWindow = () => {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        frame: false,
-        titleBarStyle: 'hidden',
-    })
-
-    win.loadFile('src/index.html')
-}
+const { app, BrowserWindow, Menu, contextBridge, ipcRenderer, ipcMain } = require('electron')
+const path = require('node:path')
+const DefaultHTML = 'front/MainPage/index.html'
 
 app.whenReady().then(() => {
     Menu.setApplicationMenu(null)
-    createWindow()
+
+    const win = new BrowserWindow({
+        width: 900,
+        height: 600,
+        frame: false,
+        titleBarStyle: 'hidden',
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
+    })
+
+    win.loadFile(DefaultHTML)
+
+    ipcMain.on("window-close", () => {
+        win.close()
+    })
 })
 
 app.on('window-all-closed', () => {
