@@ -16,15 +16,22 @@
 }
 
 .closeWindowButton {
-    width: 26px;
-    height: 26px;
+    width: 16px;
+    height: 16px;
 
-    margin-left: auto;
+    margin-left: calc(100% - 20px);
     margin-top: 3px;
 
     font-size: 19px;
     font-family:Arial, Helvetica, sans-serif;
     color: rgb(180, 180, 180);
+
+    background-color: red;
+
+    -webkit-app-region: no-drag;
+    user-select: none;
+    -webkit-user-select: none; /* Electron / Chromium */
+    -ms-user-select: none;
 }
 
 body {
