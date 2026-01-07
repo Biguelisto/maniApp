@@ -1,6 +1,13 @@
-const { app, BrowserWindow, Menu, contextBridge, ipcRenderer, ipcMain } = require('electron')
+require("dotenv").config()
+
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('node:path')
 const DefaultHTML = 'front/MainPage/index.html'
+
+if (process.env.RUN_TESTS === "true") {
+    console.log("Running tests...")
+    require("../tests/APITest.js")
+}
 
 app.whenReady().then(() => {
     Menu.setApplicationMenu(null)

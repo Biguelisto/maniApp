@@ -4,6 +4,11 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
-  }
+    "start": "electron .",
+    "test": "./tests/APITest.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "type": "commonjs"
 }
