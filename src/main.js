@@ -6,7 +6,7 @@ const DefaultHTML = 'front/MainPage/index.html'
 
 if (process.env.RUN_TESTS === "true") {
     console.log("Running tests...")
-    require("../tests/APITest.js")
+    require("../tests/apitest.js")
 }
 
 app.whenReady().then(() => {
