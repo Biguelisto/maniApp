@@ -5,5 +5,9 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron ."
-  }
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "type":"commonjs"
 }
