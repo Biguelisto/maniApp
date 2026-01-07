@@ -1,6 +1,7 @@
 //* Setting up apis for front-end
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld("api", {
-    close: () => ipcRenderer.send("window-close")
+contextBridge.exposeInMainWorld("titleBarAPI", {
+    close: () => ipcRenderer.send("window-close"),
+    minimize: () => ipcRenderer.send("window-minimize"),
 })

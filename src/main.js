@@ -20,6 +20,9 @@ app.whenReady().then(() => {
     ipcMain.on("window-close", () => {
         win.close()
     })
+    ipcMain.on("window-minimize", () => {
+        win.minimize()
+    })
 })
 
 app.on('window-all-closed', () => {

@@ -16,17 +16,42 @@
 }
 
 .closeWindowButton {
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
 
-    margin-left: calc(100% - 20px);
-    margin-top: 3px;
+    position: absolute;
 
-    font-size: 19px;
+    margin-left: calc(100% - 30px);
+
+
+    font-size: 17px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 26px;
     font-family:Arial, Helvetica, sans-serif;
     color: rgb(180, 180, 180);
 
-    background-color: red;
+    -webkit-app-region: no-drag;
+    user-select: none;
+    -webkit-user-select: none; /* Electron / Chromium */
+    -ms-user-select: none;
+}
+
+.minimizeWindowButton {
+    width: 26px;
+    height: 26px;
+
+    position: absolute;
+
+    margin-left: calc(100% - 58px);
+
+    font-size: 36px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 22px;
+    font-family:Arial, Helvetica, sans-serif;
+    color: rgb(180, 180, 180);
 
     -webkit-app-region: no-drag;
     user-select: none;
