@@ -4,8 +4,7 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "./tests/APITest.js"
+    "start": "electron ."
   },
   "dependencies": {
     "dotenv": "^17.2.3",

@@ -180,7 +180,8 @@ module.exports = {
     getScore,
     getUserRecent,
     getUserBest,
-    getUser
+    getUser,
+    getBeatmap
 }
 
 console.log(OSU_API_KEY)
