@@ -8,7 +8,8 @@
     "test": "./tests/APITest.js"
   },
   "dependencies": {
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "p-queue": "^9.1.0"
   },
   "type": "commonjs"
 }
