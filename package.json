@@ -2,13 +2,14 @@
   "devDependencies": {
     "electron": "^39.2.7"
   },
-  "main": "src/main.js",
+  "main": "maniAppSrc/main.js",
   "scripts": {
     "start": "electron ."
   },
   "dependencies": {
     "dotenv": "^17.2.3",
-    "p-queue": "^9.1.0"
+    "p-queue": "^9.1.0",
+    "selenium-webdriver": "^4.40.0"
   },
   "type": "commonjs"
 }

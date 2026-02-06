@@ -10,7 +10,7 @@ MinimizeButton.addEventListener("click", (e) => {
 
 console.log("Front start!")
 async function LoadUser() {
-    const Data = await window.Scrapper.ScrapeSearch('a')
+    const Data = await window.Scrapper.ScrapeBeatmap('https://osu.ppy.sh/beatmapsets/2046363#mania/4283840')
     console.log(Data)
 }
 
