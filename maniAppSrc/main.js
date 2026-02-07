@@ -2,20 +2,40 @@ require("dotenv").config()
 
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('node:path')
-const DefaultHTML = 'front/MainPage/index.html'
+const fs = require("fs")
+const DefaultHTML = 'maniApp/MainPage/index.html'
 
 
 
 // Running other files
-const { CloseScrapper } = require("./scrapper/scrapper.js")
+// const { CloseScrapper } = require("./scrapper/scrapper.js")
+const { CloseScrapper } = require("./scrapper/scrapper")
+
 
 
 
 
 if (process.env.RUN_TESTS === "true") {
-    console.log("Running tests...")
-    require("../tests/apitest.js")
+    console.log("=========")
+    const folderPath = path.join(__dirname, "Tests")
+
+    fs.readdirSync(folderPath)
+        .filter(file => file.endsWith('.js'))
+        .forEach(file => {
+            const { Do } = require(path.join(folderPath, file))
+            if (Do()) {
+                console.log("Test", file, "success")
+                return
+            }
+            console.log("Test", file, "failed")
+    })
+
+    console.log("=========")
 }
+
+
+
+
 
 app.whenReady().then(() => {
     Menu.setApplicationMenu(null)
@@ -51,7 +71,7 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+    if (process.platform !== 'darwin') { // Darwin = MacOS
         app.quit()
     }
 })
