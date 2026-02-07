@@ -183,5 +183,3 @@ module.exports = {
     getUser,
     getBeatmap
 }
-
-console.log(OSU_API_KEY)

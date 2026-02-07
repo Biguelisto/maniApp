@@ -2,7 +2,7 @@ require("dotenv").config()
 
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('node:path')
-const os = require("os")
+const fs = require("fs")
 const DefaultHTML = 'maniApp/MainPage/index.html'
 
 
@@ -10,33 +10,32 @@ const DefaultHTML = 'maniApp/MainPage/index.html'
 // Running other files
 // const { CloseScrapper } = require("./scrapper/scrapper.js")
 const { CloseScrapper } = require("./scrapper/scrapper")
-const { OsuRunning } = require("./OsuTools/osu-open.js")
-const { OsuTitle } = require("./OsuTools/osu-title.js")
-const { RecentReplays } = require("./OsuTools/osu-replays.js")
 
-async function A() {
-    const osuPath = path.join(
-        os.homedir(),
-        'AppData',
-        'Local',
-        'osu!',
-        'Songs',
-        '1748707 Aharen Reina (CV_ Inori Minase) - AHAREN HEART (TV Size)',
-        'Aharen Reina (CV Inori Minase) - AHAREN HEART (TV Size) (Drum-Hitnormal) [Hard].osu'
-    )
-
-    const Title = RecentReplays(osuPath)
-    console.log(Title)
-}
-A()
 
 
 
 
 if (process.env.RUN_TESTS === "true") {
-    console.log("Running tests...")
-    require("../tests/apitest.js")
+    console.log("=========")
+    const folderPath = path.join(__dirname, "Tests")
+
+    fs.readdirSync(folderPath)
+        .filter(file => file.endsWith('.js'))
+        .forEach(file => {
+            const { Do } = require(path.join(folderPath, file))
+            if (Do()) {
+                console.log("Test", file, "success")
+                return
+            }
+            console.log("Test", file, "failed")
+    })
+
+    console.log("=========")
 }
+
+
+
+
 
 app.whenReady().then(() => {
     Menu.setApplicationMenu(null)
