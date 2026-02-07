@@ -1,7 +1,6 @@
-//! Currently not working until i find someway to search even without an account
 async function ScrapeSearch(Query, ScrappingWindow) {
     if (!Query) { return }
-    Query = encodeURIComponent(Query) // Formats query to be like the ones osu uses
+    Query = encodeURIComponent(Query); // Formats query to be like the ones osu uses
     let PageURL = `https://osu.ppy.sh/home/search?mode=all&query=${Query}`
     
     await ScrappingWindow.loadURL(PageURL)
@@ -12,29 +11,31 @@ async function ScrapeSearch(Query, ScrappingWindow) {
                 const Users = []
                 const Teams = []
 
-                const SearchCont = document.querySelector('.search')
+                const SearchCont = document.getElementsByClassName('search')[0];
+                if (!SearchCont) return { Beatmaps: [] }
 
-                const BeatmapsContainer = SearchCont.children[1].className
-                // for (let Beatmap of BeatmapsContainer.children) {
-                //     // const Audio = Beatmap.getAttribute('data-audio-url')
-                //     Beatmap = Beatmap.children[0]
+                const BeatmapsContainer = SearchCont.children[1]; // Get the second child (assumed container)
 
-                //     const Cover = Beatmap.children[0]
-                //     const Content = Beatmap.children[1]
+                const BeatmapItems = BeatmapsContainer ? BeatmapsContainer.children : [];
 
-                //     const Structure = {
-                //         BeatmapURL: Cover.getAttribute('href'),
-                //         BeatmapCover: Cover.children[0].children[0].style.getPropertyValue('--bg'),
-                //         // AudioURL: Audio
-                //     }
+                for (let Beatmap of BeatmapItems) {
+                    const Cover = Beatmap.children[0]; 
+                    const Content = Beatmap.children[1]; 
                     
-                //     Beatmaps.push(Structure)
-                // }
-                Beatmaps = BeatmapsContainer.className
+                    const BeatmapURL = Cover ? Cover.getAttribute('href') : '';
+                    const BeatmapCover = Cover ? Cover.children[0]?.children[0]?.style.getPropertyValue('--bg') : '';
+                    
+                    if (BeatmapURL) {
+                        Beatmaps.push({
+                            BeatmapURL: BeatmapURL,
+                            BeatmapCover: BeatmapCover,
+                        });
+                    }
+                }
 
                 return { Beatmaps }
             } catch (e) {
-                return e
+                return { error: e.message }
             }
         })()
     `)

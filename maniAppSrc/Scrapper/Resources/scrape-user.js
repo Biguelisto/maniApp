@@ -14,148 +14,99 @@ async function ScrapeUser(PageURL, Mode, ScrappingWindow) {
     const Data = await ScrappingWindow.webContents.executeJavaScript(`
         (async () => {
             try {
-                // Lazy-Load
-                // const Interval = 20
-                // function sleep(ms) {
-                //     return new Promise(r => setTimeout(r, ms))
-                // }
-
-                // for (let i = 1; i <= 7; i++) {
-                //     window.scrollTo({top: i * 800})
-                //     await sleep(40)
-                // }
-
-
-
-
                 // Essentials
-                const ProfileName = document.querySelector('.profile-info__name').querySelector(':scope > span').innerText
-                const ProfilePictureURL = document.querySelector('.profile-info__avatar').querySelector(':scope > span').style.backgroundImage
-                const JoinDate = document.querySelector('.js-tooltip-time.profile-links__value').innerText
-                const TitleElement = document.querySelector('.profile-info__title')
-                let Title = null
-                if (TitleElement) {
-                    Title = TitleElement.innerText
-                }
+                const ProfileInfo = document.getElementsByClassName('profile-info__name')[0];
+                const ProfileName = ProfileInfo ? ProfileInfo.getElementsByTagName('span')[0]?.innerText : '';
+                const ProfilePictureURL = document.getElementsByClassName('profile-info__avatar')[0]?.getElementsByTagName('span')[0]?.style.backgroundImage || '';
+                const JoinDate = document.getElementsByClassName('js-tooltip-time profile-links__value')[0]?.innerText || '';
+                
+                const TitleElement = document.getElementsByClassName('profile-info__title')[0];
+                const Title = TitleElement ? TitleElement.innerText : null;
 
-                const DefaultGameModeElement = document.querySelector('[title="default game mode"]')
-                let DefaultGameMode = "N/A"
+                const DefaultGameModeElement = document.getElementsByClassName('game-mode-link game-mode-link--active')[0];
+                let DefaultGameMode = "N/A";
                 if (DefaultGameModeElement) {
-                    DefaultGameMode = document.querySelector('.game-mode-link.game-mode-link--active').querySelector('.fal').className
-                    DefaultGameMode = DefaultGameMode.split('-')
-                    DefaultGameMode = DefaultGameMode[DefaultGameMode.length - 1]
+                    const modeClass = DefaultGameModeElement.getElementsByTagName('i')[0]?.className || '';
+                    DefaultGameMode = modeClass.split('-').pop() || '';
                 }
 
-                const Statuses = document.querySelectorAll('.profile-links__item') 
-                let OnlineStatus = null
+                const Statuses = document.getElementsByClassName('profile-links__item');
+                let OnlineStatus = null;
                 if (Statuses.length < 5) {
-                    OnlineStatus = "Hidden"
+                    OnlineStatus = "Hidden";
                 } else {
-                    OnlineStatus = Statuses[1].innerText.match("online")
-                    if (OnlineStatus) {
-                        OnlineStatus = "Online"
-                    } else {
-                        OnlineStatus = "Offline"
-                    }
+                    const statusText = Statuses[1]?.innerText || '';
+                    OnlineStatus = statusText.includes("online") ? "Online" : "Offline";
                 }
 
                 // Rankings
-                const RankingsElements = document.querySelector('.profile-detail__values')?.querySelectorAll(':scope > div')
+                const RankingsElements = document.getElementsByClassName('profile-detail__values')[0]?.getElementsByTagName('div') || [];
                 const Rankings = {
-                    GlobalRanking: RankingsElements[0].querySelector('.value-display__value').querySelector('div').innerText,
-                    NationalRanking: RankingsElements[1].querySelector('.value-display__value').querySelector('div').innerText
-                }
-
-                const AllFlags = document.querySelectorAll('.profile-info__flag')
+                    GlobalRanking: RankingsElements[0] ? RankingsElements[0].getElementsByClassName('value-display__value')[0]?.getElementsByTagName('div')[0]?.innerText : '',
+                    NationalRanking: RankingsElements[1] ? RankingsElements[1].getElementsByClassName('value-display__value')[0]?.getElementsByTagName('div')[0]?.innerText : ''
+                };
 
                 // Country
-                const CountryFlagElement = AllFlags[0]
-                const CountryFlagE = CountryFlagElement.querySelector('span')
-                const HREFCOUNTRY = CountryFlagElement.getAttribute('href')
+                const AllFlags = document.getElementsByClassName('profile-info__flag');
+                const CountryFlagElement = AllFlags[0];
+                const CountryFlagE = CountryFlagElement ? CountryFlagElement.getElementsByTagName('span')[0] : null;
+                const HREFCOUNTRY = CountryFlagElement ? CountryFlagElement.getAttribute('href') : '';
                 const Country = {
-                    CountryName: CountryFlagE.title,
-                    CountryNameShortened: HREFCOUNTRY.slice(HREFCOUNTRY.length - 2, HREFCOUNTRY.length),
+                    CountryName: CountryFlagE ? CountryFlagE.title : '',
+                    CountryNameShortened: HREFCOUNTRY.slice(-2),
                     CountryRankings: HREFCOUNTRY
-                }
-
+                };
 
                 // Team / Clan
-                let Team = {}
+                let Team = {};
                 if (AllFlags.length > 1) {
-                    const TeamFlagElement = AllFlags[1]
-                    const TeamFlagE = TeamFlagElement.querySelector('.flag-team')
-                    const TeamFlagName = TeamFlagElement.querySelector('.profile-info__flag-text')
+                    const TeamFlagElement = AllFlags[1];
+                    const TeamFlagE = TeamFlagElement.getElementsByClassName('flag-team')[0];
+                    const TeamFlagName = TeamFlagElement.getElementsByClassName('profile-info__flag-text')[0];
                     Team = {
-                        TeamName: TeamFlagName.innerText,
-                        TeamFlag: TeamFlagE.style.backgroundImage,
+                        TeamName: TeamFlagName ? TeamFlagName.innerText : '',
+                        TeamFlag: TeamFlagE ? TeamFlagE.style.backgroundImage : '',
                         TeamURL: TeamFlagElement.getAttribute('href')
-                    }
+                    };
                 }
 
-                // Getting the 5 recent plays
-                // const Recent = document.querySelector('.js-sortable--page[data-page-id="recent_activity"]')
-                // const LazyLoad = Recent.querySelector('.lazy-load')
-                // while (LazyLoad.children[0].className != 'profile-extra-entries') {
-                //     await sleep(Interval)
-                // }
-                
-                // const RecentContent = LazyLoad.children[0]
-                // let RecentMaps = []
-                // for (let i = 0; i < RecentContent.children.length - 1; i++) {
-                //     const Children = RecentContent.children[i]
-
-                //     const Main = Children.querySelector('.profile-extra-entries__text')
-                //     const Beatmap = Main.querySelectorAll('a')[1]
-                //     const Element = {
-                //         Text: Main.innerText,
-                //         BeatmapName: Beatmap.innerText,
-                //         BeatmapLink: "https://osu.ppy.sh" + Beatmap.getAttribute("href")
-                //     }
-                //     RecentMaps.push(Element)
-                // }
-
-
                 return { ProfileName, ProfilePictureURL, JoinDate, Title, OnlineStatus, DefaultGameMode, Country, Rankings, Team }
-            } catch {
-                return
+            } catch (e) {
+                console.error(e);
+                return null;
             }
         })()
     `)
 
-    // Curing data
-    Data.ProfilePictureURL = Data.ProfilePictureURL.slice(5, Data.ProfilePictureURL.length - 2)
+    // Clean profile picture URL
+    if (Data.ProfilePictureURL) {
+        Data.ProfilePictureURL = Data.ProfilePictureURL.slice(5, Data.ProfilePictureURL.length - 2);
+    }
     
-    let Pos = null
-    let Lifelines = 1
-    let LifelinePosition = URL.length
-    if (Mode) { Lifelines += 1 } // If it has a mode after then its the second '/'
+    let Pos = null;
+    let Lifelines = 1;
+    let LifelinePosition = URL.length;
+    if (Mode) { Lifelines += 1 } // If mode exists, increment Lifelines count
     for (let i = URL.length; i > 0; i--) {
-        const Character = URL.slice(i - 1, i)
+        const Character = URL.slice(i - 1, i);
         if (Character == "/") {
-            Lifelines -= 1
+            Lifelines -= 1;
             if (Lifelines > 0) {
-                LifelinePosition = i - 1
-                continue
+                LifelinePosition = i - 1;
+                continue;
             }
-
-            Pos = i
-            break
+            Pos = i;
+            break;
         }
     }
     if (Pos) {
-        Data.UserID = URL.slice(Pos, LifelinePosition)
+        Data.UserID = URL.slice(Pos, LifelinePosition);
     }
 
-    Data.Mode = Mode
-    if (!Data.Mode) {
-        if (Data.DefaultGameMode != "N/A") {
-            Data.Mode = Data.DefaultGameMode
-        } else {
-            Data.Mode = "osu"
-        }
-    }
+    // Determine mode
+    Data.Mode = Mode || Data.DefaultGameMode || "osu";
 
-    return Data
+    return Data;
 }
 
 module.exports = {

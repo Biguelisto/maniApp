@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 
-//* Scrappers
 const { ScrapeBeatmap } = require('./Resources/scrape-beatmap.js')
 const { ScrapeUser } = require('./Resources/scrape-user.js')
 const { ScrapeMatch } = require('./Resources/scrape-match.js')
@@ -69,8 +68,6 @@ ipcMain.handle("ScrapeMatch", async (_, MatchURL) => {
 
 // TODO: Optimize a lot
 // TODO: Fix occasional error: 'Cannot read properties of null (reading 'querySelector')' with ScrapeUser
-// // TODO: Add score recalculation for ScrapeScore
-// // TODO: ScrapeSearch
 
 function CloseScrapper() {
     ScrappingWindow.close()

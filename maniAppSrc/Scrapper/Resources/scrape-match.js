@@ -1,7 +1,6 @@
-//! This thing is absurdly big so beware of it.
 async function ScrapeMatch(MatchURL, ScrappingWindow) {
     if (!MatchURL) { return }
-    if (!String(MatchURL).match('https://')) { // Assumes its ID
+    if (!String(MatchURL).match('https://')) { // Assumes it's ID
         MatchURL = `https://osu.ppy.sh/community/matches/${MatchURL}`
     }
 
@@ -9,112 +8,109 @@ async function ScrapeMatch(MatchURL, ScrappingWindow) {
     const Data = await ScrappingWindow.webContents.executeJavaScript(`
         (() => {
             try {
-                const Container = document.querySelector('.mp-history-content')
-                const HistoryItems = Container.querySelectorAll('.mp-history-content__item')
+                const Container = document.getElementsByClassName('mp-history-content')[0];
+                const HistoryItems = Container ? Container.getElementsByClassName('mp-history-content__item') : [];
 
                 // Essentials
-                const Name = HistoryItems[0].innerText
+                const Name = HistoryItems[0] ? HistoryItems[0].innerText : '';
 
-                const Games = []
-                const Events = []
+                const Games = [];
+                const Events = [];
 
-                let i = 0
+                let i = 0;
                 for (let Child of HistoryItems) {
-                    if (i == 0) {
-                        i = 1
-                        continue
+                    if (i === 0) {
+                        i = 1;
+                        continue;
                     }
                     
-                    const FirstChild = Child.children[0]
-                    if (!FirstChild) { continue }
-                    const FirstClass = FirstChild.className
+                    const FirstChild = Child.children[0];
+                    if (!FirstChild) { continue; }
+                    const FirstClass = FirstChild.className;
 
                     // Event like player joined
                     if (FirstClass.endsWith('event')) {
-                        let Type = FirstChild.children[1].className
-                        Type = Type.split('-')
-                        Type = Type[Type.length - 1]
+                        let Type = FirstChild.children[1]?.className.split('-').pop() || '';
+                        const TextElement = FirstChild.children[2];
+                        let UserName = null;
+                        let UserURL = null;
 
-                        const TextElement = FirstChild.children[2]
-                        let UserName = null
-                        let UserURL = null
                         if (TextElement.children.length > 0) {
-                            UserName = TextElement.innerText.split(' ')
-                            UserName = UserName[0]
-                            UserURL = TextElement.children[0].getAttribute('href')
+                            UserName = TextElement.innerText.split(' ')[0];
+                            UserURL = TextElement.children[0]?.getAttribute('href');
                         }
 
                         const Structure = {
-                            Time: FirstChild.children[0].innerText,
+                            Time: FirstChild.children[0]?.innerText || '',
                             Type: Type,
                             Text: TextElement.innerText,
                             UserName: UserName,
                             UserURL: UserURL
-                        }
+                        };
 
-                        Events.push(Structure)
-                        continue
+                        Events.push(Structure);
+                        continue;
                     }
 
                     // Game / Match play
-                    const BeatmapHeader = FirstChild.querySelector('.mp-history-game__header')
-                    const BeatmapTexts = FirstChild.querySelector('.mp-history-game__metadata-box')
+                    const BeatmapHeader = FirstChild.getElementsByClassName('mp-history-game__header')[0];
+                    const BeatmapTexts = FirstChild.getElementsByClassName('mp-history-game__metadata-box')[0];
                     const Beatmap = {
-                        BeatmapURL: BeatmapHeader.getAttribute('href'),
-                        Title: BeatmapTexts.children[0].innerText,
-                        Artist: BeatmapTexts.children[1].innerText
-                    }
+                        BeatmapURL: BeatmapHeader?.getAttribute('href') || '',
+                        Title: BeatmapTexts ? BeatmapTexts.children[0]?.innerText : '',
+                        Artist: BeatmapTexts ? BeatmapTexts.children[1]?.innerText : ''
+                    };
 
-                    const AllScores = FirstChild.querySelectorAll('.mp-history-player-score')
-                    let PlacementNumber = 0
-                    const Scores = []
+                    const AllScores = FirstChild.getElementsByClassName('mp-history-player-score');
+                    let PlacementNumber = 0;
+                    const Scores = [];
+
                     for (let Score of AllScores) {
-                        PlacementNumber += 1
-                        const IsTeamsVS = Score.className.match('team')
-                        let TeamName = null
+                        PlacementNumber += 1;
+                        const IsTeamsVS = Score.className.includes('team');
+                        let TeamName = null;
                         if (IsTeamsVS) {
-                            TeamName = Score.children[0].style.backgroundImage
-                            TeamName = TeamName.split('-')
-                            TeamName = TeamName[TeamName.length - 1]
-                            TeamName = TeamName.split('.')[0]
+                            TeamName = Score.children[0]?.style.backgroundImage;
+                            TeamName = TeamName ? TeamName.split('-').pop().split('.')[0] : null;
                         }
 
-                        const UserCard = Score.children[1].children[0].children[0]
-                        const FlagURL = UserCard.children[0].getAttribute('href')
-                        let RankAchieved = Score.children[1].children[3].children[0].className
-                        RankAchieved = RankAchieved.slice(RankAchieved.length - 1, RankAchieved.length)
-                        if (RankAchieved == 'X') { RankAchieved = 'SS' }
+                        const UserCard = Score.children[1]?.children[0]?.children[0];
+                        const FlagURL = UserCard ? UserCard.children[0]?.getAttribute('href') : '';
+                        let RankAchieved = Score.children[1]?.children[3]?.children[0]?.className;
+                        RankAchieved = RankAchieved ? RankAchieved.slice(-1) : '';
+                        if (RankAchieved === 'X') { RankAchieved = 'SS'; }
 
-                        const FirstRow = Score.children[1].children[2].children[0]
-                        const ScoreValue = Number(FirstRow.children[2].children[1].innerText.replace(',', ''))
-                        const Accuracy = FirstRow.children[1].children[1].innerText
-                        const MaxCombo = Number(FirstRow.children[0].children[1].innerText.replace(',', ''))
+                        const FirstRow = Score.children[1]?.children[2]?.children[0];
+                        const ScoreValue = Number(FirstRow?.children[2]?.children[1]?.innerText.replace(',', '')) || 0;
+                        const Accuracy = FirstRow?.children[1]?.children[1]?.innerText || '';
+                        const MaxCombo = Number(FirstRow?.children[0]?.children[1]?.innerText.replace(',', '')) || 0;
 
-                        const Judgement = {}
-                        const SecondRow = Score.children[1].children[2].children[1]
-                        for (let Child of SecondRow.children) {
-                            Judgement[Child.children[0].innerText] = Number(Child.children[1].innerText.replace(',', ''))
+                        const Judgement = {};
+                        const SecondRow = Score.children[1]?.children[2]?.children[1];
+                        if (SecondRow) {
+                            for (let Child of SecondRow.children) {
+                                Judgement[Child.children[0]?.innerText] = Number(Child.children[1]?.innerText.replace(',', '')) || 0;
+                            }
                         }
 
-                        const Mods = []
-                        const ModsContainer = Score.children[1].children[1]
-                        for (let Child of ModsContainer.children) {
-                            const ModFullName = Child.title
-                            let Shortened = Child.querySelector('div').className
-                            Shortened = Shortened.slice(Shortened.length - 2, Shortened.length)
+                        const Mods = [];
+                        const ModsContainer = Score.children[1]?.children[1];
+                        for (let Child of ModsContainer?.children || []) {
+                            const ModFullName = Child.title;
+                            let Shortened = Child.querySelector('div')?.className || '';
+                            Shortened = Shortened.slice(-2);
 
-                            const Mod = {
+                            Mods.push({
                                 FullName: ModFullName,
                                 Shortened: Shortened,
-                            }
-                            Mods.push(Mod)
+                            });
                         }
 
                         const UserStructure = {
-                            Name: UserCard.children[1].innerText,
-                            URL: UserCard.children[1].getAttribute('href'),
-                            CountryShortened: FlagURL.slice(FlagURL.length - 2, FlagURL.length)
-                        }
+                            Name: UserCard?.children[1]?.innerText || '',
+                            URL: UserCard?.children[1]?.getAttribute('href') || '',
+                            CountryShortened: FlagURL.slice(-2),
+                        };
 
                         const Structure = {
                             Score: ScoreValue,
@@ -126,40 +122,42 @@ async function ScrapeMatch(MatchURL, ScrappingWindow) {
                             User: UserStructure,
                             AchievedRank: RankAchieved,
                             Team: TeamName,
-                        }
-                        
-                        Scores.push(Structure)
+                        };
+
+                        Scores.push(Structure);
                     }
 
-                    const Stats = FirstChild.querySelector('.mp-history-game__stats-box')
-                    const Structure = {
+                    const Stats = FirstChild.getElementsByClassName('mp-history-game__stats-box')[0];
+                    const GameStructure = {
                         Beatmap: Beatmap,
-                        StartTime: Stats.children[0].children[0].innerText,
-                        EndTime: Stats.children[0].children[1].innerText,
-                        Mode: Stats.children[1].innerText.slice(4, Stats.children[1].innerText.length),
-                        ScoreType: Stats.children[2].innerText,
+                        StartTime: Stats?.children[0]?.children[0]?.innerText || '',
+                        EndTime: Stats?.children[0]?.children[1]?.innerText || '',
+                        Mode: Stats?.children[1]?.innerText.slice(4) || '',
+                        ScoreType: Stats?.children[2]?.innerText || '',
                         Scores: Scores,
-                        IsTeamVS: Scores[0].Team != null,
-                    }
-                    Games.push(Structure)
+                        IsTeamVS: Scores[0]?.Team != null,
+                    };
+
+                    Games.push(GameStructure);
                 }
 
-                return { Name, Games, Events }
-            } catch {
-                return
+                return { Name, Games, Events };
+            } catch (error) {
+                console.error(error);
+                return null;
             }
         })()
     `)
 
     // Extra data
-    Data.StartTime = Data.Events[0].Time
-    Data.EndTime = Data.Events[Data.Events.length - 1].Time
+    Data.StartTime = Data.Events[0]?.Time;
+    Data.EndTime = Data.Events[Data.Events.length - 1]?.Time;
     Data.Creator = {
-        Name: Data.Events[0].UserName,
-        URL: Data.Events[0].UserURL
-    }
+        Name: Data.Events[0]?.UserName,
+        URL: Data.Events[0]?.UserURL
+    };
 
-    return Data
+    return Data;
 }
 
 module.exports = {
