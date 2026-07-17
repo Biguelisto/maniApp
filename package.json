@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "electron": "^39.2.7"
+    "electron": "^39.8.10"
   },
   "main": "maniAppSrc/main.js",
   "scripts": {
