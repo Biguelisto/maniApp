@@ -7,7 +7,7 @@ contextBridge.exposeInMainWorld("titleBarAPI", {
 })
 
 contextBridge.exposeInMainWorld("Scrapper", {
-    ScrapeUser: (URL, Mode) => ipcRenderer.invoke("ScrapeUser", URL, Mode),
+    ScrapeUser: (URL, Mode, Achievements) => ipcRenderer.invoke("ScrapeUser", URL, Mode, Achievements),
     ScrapeSearch: (Query) => ipcRenderer. invoke("ScrapeSearch", Query),
     ScrapeBeatmap: (URL, ISBEATMAP) => ipcRenderer.invoke("ScrapeBeatmap", URL, ISBEATMAP),
     ScrapeScore: (URL, Stable) => ipcRenderer.invoke("ScrapeScore", URL, Stable),

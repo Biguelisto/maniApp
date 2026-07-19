@@ -37,40 +37,28 @@ function enqueue(fn) {
 
 
 
-//* Scrapper Wrappers
-async function ScrapeBeatmapWrapped(...args) {
-    return await enqueue(() => ScrapeBeatmap(...args))
-}
-
-
-
-ipcMain.handle("ScrapeUser", async (_, URL, Mode) => {
-    return await ScrapeUser(URL, Mode, ScrappingWindow)
+ipcMain.handle("ScrapeUser", async (_, URL, Mode, Achievements) => {
+    return await ScrapeUser(URL, Mode, Achievements)
 })
 
 ipcMain.handle("ScrapeSearch", async (_, Query) => {
-    return await ScrapeSearch(Query, ScrappingWindow)
+    return await ScrapeSearch(Query)
 })
 
 ipcMain.handle("ScrapeBeatmap", async (_, BeatmapURL, ISBEATMAP) => {
-    return await ScrapeBeatmapWrapped(BeatmapURL, ISBEATMAP, ScrappingWindow)
+    return await ScrapeBeatmap(BeatmapURL, ISBEATMAP)
 })
 
 ipcMain.handle("ScrapeScore", async (_, ScoreURL, Stable) => {
-    return await ScrapeScore(ScoreURL, Stable, ScrappingWindow)
+    return await ScrapeScore(ScoreURL, Stable)
 })
 
 ipcMain.handle("ScrapeMatch", async (_, MatchURL) => {
-    return await ScrapeMatch(MatchURL, ScrappingWindow)
+    return await ScrapeMatch(MatchURL)
 })
 
 //! ALL URLS CAN ALSO BE IDS
 //* Call example: window.Scrapper.ScrapeMatch(MatchURL / MatchID)
-
-// TODO: Optimize a lot
-// TODO: Fix occasional error: 'Cannot read properties of null (reading 'querySelector')' with ScrapeUser
-// // TODO: Add score recalculation for ScrapeScore
-// // TODO: ScrapeSearch
 
 function CloseScrapper() {
     ScrappingWindow.close()
