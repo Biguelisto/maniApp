@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <link rel="stylesheet" href="../titleBar.css">
+    <link rel="stylesheet" href="../styles.css">
+    <title>Osu Tracker</title>
+</head>
+
+<body>
+
+    <!--Necessary titleBar HTML-->
+    <div class="titleBar">
+        <div class="header-logo"><img src="../assets/maniapplogo.png" alt="logo"></div>
+        <div class="minimizeWindowButton" title="Minimize">₋</div>
+        <div class="maximizeWindowButton" title="Maximizar">▢</div>
+        <div class="closeWindowButton" title="Close">✕</div>
+    </div>
+    <div class="header-divider"></div>
+    <script src="../titleBar.js"></script>
+    <!--Necessary titleBar HTML-->
+    
+    </header>
+    <!--NAVBAR-->
+    <main class="app">
+        <div class="match-header">
+            <img src="../assets/ricechibishower.png" alt="Capa da Match" class="match-avatar">
+            <span class="match-name">Eu estou com muito tesão</span>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="../Overview/overview.html">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Leaderboard/leaderboard.html">Leaderboard</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="../Players/players.html">Players</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!--Top Bar-->
+        <div class="app-top-bar">
+            <div class="app-title-area">
+                <div class="title-wrapper">
+                    <p>Dashboard</p>
+                    <div class="app-title-underline"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-container-left-side"></div>
+        </div>
+
+    </main>
+
+    <script src="MainPageModal.js"></script>
+</body>
+
+</html>
