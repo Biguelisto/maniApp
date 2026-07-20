@@ -1,26 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-        <meta
-        http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'"
-        />
-        <meta
-        http-equiv="X-Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'"
-        />
-        <link rel="stylesheet" href="../titleBar.css">
-        <title>Osu Tracker</title>
-    </head>
-    <body>
-        <!--Necessary titleBar HTML-->
-        <div class="titleBar">
-            <div class="closeWindowButton" title="closeWindow">X</div>
-            <div class="minimizeWindowButton" title="minimizeWindow">-</div>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <link rel="stylesheet" href="../titleBar.css">
+    <link rel="stylesheet" href="../styles.css">
+    <title>Osu Tracker</title>
+</head>
+
+<body>
+    
+    <!--Necessary titleBar HTML-->
+    <div class="titleBar">
+        <div class="header-logo"><img src="../assets/maniapplogo.png" alt="logo"></div>
+        <div class="minimizeWindowButton" title="Minimize">₋</div>
+        <div class="maximizeWindowButton" title="Maximizar">▢</div>
+        <div class="closeWindowButton" title="Close">✕</div>
+    </div>
+    <div class="header-divider"></div>
+    <script src="../titleBar.js"></script>
+    <!--Necessary titleBar HTML-->
+
+    <main class="app">
+
+        <!--Top Bar-->
+        <div class="app-top-bar">
+            <div class="app-title-area">
+                <div class="title-wrapper">
+                    <p>Recent Matches</p>
+
+                    <div class="app-title-underline"></div>
+                </div>
+            </div>
+            <div class="app-menu-area">
+                <nav class="menu">
+                    <div class="menu-item"><img src="..\assets\search.png" alt="search"></div>
+                    <div class="menu-item"><img src="..\assets\import.png" alt="import"></div>
+                    <div class="menu-item"><img src="..\assets\hamburguer.png" alt="menu"></div>
+                </nav>
+            </div>
         </div>
-        <script src="../titleBar.js"></script>
-        <!--Necessary titleBar HTML-->
-    </body>
+
+        <!-- Match Grid -->
+        <section class="match-grid">
+
+            <!-- Create New Match Card -->
+            <div class="match-card match-card-create" data-modal="create-match-modal">
+                <div class="match-card-image match-card-image-create">
+                    <img src="..\assets\plusicon.png" alt="plus">
+                </div>
+                <div class="match-card-name">Create New Match</div>
+                <div class="match-card-author"></div>
+            </div>
+
+            <!-- MODAL -->
+            <dialog id="create-match-modal">
+                <button class="modal-close" data-modal="create-match-modal">✕</button>
+
+                <p class="modal-title modal-title-center">Upload Banner</p>
+                <div class="modal-upload-area">
+                    <img src="..\assets\import.png" alt="import icon">
+                </div>
+
+                <p class="modal-title">Nome da match</p>
+                <input class="modal-input" type="text" placeholder="Minha Primeira Match...">
+
+                <p class="modal-title">ID/Url do lobby</p>
+                <div class="modal-input-wrapper">
+                    <input class="modal-input" type="text" placeholder="118999927...">
+                    <img src="..\assets\add.png" alt="add" class="modal-add-icon">
+                </div>
+
+                <button class="modal-create-btn"><span>Criar Match</span></button>
+            </dialog>
+
+            <!-- Card -->
+            <div class="match-card">
+                <div class="match-card-image">
+                    <img src="..\assets\ricechibishower.png" alt="match">
+                </div>
+                <div class="match-card-name">Eu estou com muito tesão</div>
+                <div class="match-card-author">Eddu</div>
+            </div>
+
+            <!-- Card -->
+            <div class="match-card">
+                <div class="match-card-image">
+                    <img src="..\assets\ricechibishower.png" alt="match">
+                </div>
+                <div class="match-card-name">Jotinha ama femboys</div>
+                <div class="match-card-author">Wide</div>
+            </div>
+
+            <!-- Navegação temporária -->
+            <a href="../Overview/overview.html">
+                <div class="modal-create-btn">
+                    <span>NextPage</span>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <script src="MainPageModal.js"></script>
+</body>
+
 </html>
