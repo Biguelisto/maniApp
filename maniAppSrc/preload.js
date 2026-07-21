@@ -2,8 +2,9 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld("titleBarAPI", {
-    close: () => ipcRenderer.send("window-close"),
-    minimize: () => ipcRenderer.send("window-minimize"),
+    Close: () => ipcRenderer.send("window-close"),
+    Minimize: () => ipcRenderer.send("window-minimize"),
+    Maximize: () => ipcRenderer.send("window-maximize")
 })
 
 contextBridge.exposeInMainWorld("Scrapper", {
