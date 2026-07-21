@@ -45,7 +45,11 @@ app.whenReady().then(() => {
         width: 900,
         height: 600,
         frame: false,
+        thickFrame: true,
         titleBarStyle: 'hidden',
+        roundedCorners: true,
+        useContentSize: true,
+        title: "Maniapp",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -54,6 +58,7 @@ app.whenReady().then(() => {
     win.loadFile(DefaultHTML)
     const isDev = !app.isPackaged
 
+    let SharedDebounce = false
     if (isDev) {
         win.webContents.openDevTools({ mode: "detach" })
     }
@@ -64,6 +69,23 @@ app.whenReady().then(() => {
     ipcMain.on("window-minimize", () => {
         win.minimize()
     })
+
+    let isMaximized = false
+    ipcMain.on("window-maximize", () => {
+        if (SharedDebounce) { return }
+        SharedDebounce = true
+        setTimeout(() => {
+            SharedDebounce = false
+        }, 100)
+
+        isMaximized = win.isMaximized()
+        if (isMaximized) {
+            win.unmaximize()
+            return
+        }
+        win.maximize()
+    })
+    
 
     win.addListener("closed", () => {
         CloseScrapper()

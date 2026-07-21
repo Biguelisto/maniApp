@@ -1,17 +1,14 @@
 const CloseButton = document.querySelector(".closeWindowButton")
 CloseButton.addEventListener("click", (e) => {
-    window.titleBarAPI.close()
+    window.titleBarAPI.Close()
+})
+
+const MaximizeButton = document.querySelector(".maximizeWindowButton")
+MaximizeButton.addEventListener("click", (e) => {
+    window.titleBarAPI.Maximize()
 })
 
 const MinimizeButton = document.querySelector(".minimizeWindowButton")
 MinimizeButton.addEventListener("click", (e) => {
-    window.titleBarAPI.minimize()
+    window.titleBarAPI.Minimize()
 })
-
-console.log("Front start!")
-async function LoadUser() {
-    const Data = await window.Scrapper.ScrapeBeatmap('https://osu.ppy.sh/beatmapsets/2046363#mania/4283840')
-    console.log(Data)
-}
-
-LoadUser()
