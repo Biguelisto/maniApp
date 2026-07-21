@@ -1,0 +1,1 @@
+document.getElementById('song-card-bg').style.backgroundImage = "url('../assets/aidentro.png')";

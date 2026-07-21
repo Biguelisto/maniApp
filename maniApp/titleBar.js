@@ -4,8 +4,15 @@ CloseButton.addEventListener("click", (e) => {
 })
 
 const MaximizeButton = document.querySelector(".maximizeWindowButton")
+let isMaximized = false
 MaximizeButton.addEventListener("click", (e) => {
     window.titleBarAPI.Maximize()
+    isMaximized = !isMaximized
+    if (isMaximized) {
+        MaximizeButton.textContent = "❐"
+        return
+    }
+    MaximizeButton.textContent = "▢"
 })
 
 const MinimizeButton = document.querySelector(".minimizeWindowButton")
