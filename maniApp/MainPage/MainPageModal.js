@@ -1,23 +1,11 @@
-const openButtons = document.querySelectorAll('.match-card-create');
+const modal = document.getElementById('create-match-modal');
 
-openButtons.forEach(div => {
-    div.addEventListener('click', () => {
-        const modalId = div.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.showModal();
-        }
-    });
-});
+const openButton = document.querySelector('.match-card-create')
+openButton.addEventListener('click', () => 
+    { modal.showModal(); })
+;
 
-const closeButtons = document.querySelectorAll('.modal-close');
-
-closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.close();
-        }
-    });
-});
+const closeButton = modal.querySelector('.modal-close')
+closeButton.addEventListener('click', () => 
+    { modal.close(); }
+);
