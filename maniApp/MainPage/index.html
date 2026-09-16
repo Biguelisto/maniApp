@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' https:" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <link rel="stylesheet" href="../titleBar.css">
     <link rel="stylesheet" href="../styles.css">
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    
+
     <!--Necessary titleBar HTML-->
     <div class="titleBar">
         <div class="header-logo"><img src="../assets/maniapplogo.png" alt="logo"></div>
@@ -64,15 +64,17 @@
                 <div class="modal-upload-area">
                     <img src="..\assets\import.png" alt="import icon">
                 </div>
+                <input class="modal-input" data-field="lobbyBanner" type="text" placeholder="Url do banner...">
 
                 <p class="modal-title">Nome da match</p>
-                <input class="modal-input" type="text" placeholder="Minha Primeira Match...">
+                <input class="modal-input" data-field="lobbyName" type="text" placeholder="Minha Primeira Match...">
 
                 <p class="modal-title">ID/Url do lobby</p>
                 <div class="modal-input-wrapper">
-                    <input class="modal-input" type="text" placeholder="118999927...">
+                    <input class="modal-input" data-field="lobbyId" type="text" placeholder="118999927...">
                     <img src="..\assets\add.png" alt="add" class="modal-add-icon">
                 </div>
+                <span class="lobby-id-error">Insira um id válido</span>
 
                 <button class="modal-create-btn"><span>Criar Match</span></button>
             </dialog>
@@ -95,14 +97,13 @@
                 <div class="match-card-author">Wide</div>
             </div>
 
-            <!-- Navegação temporária -->
+        </section>
+        <!-- Navegação temporária -->
             <a href="../Overview/overview.html">
                 <div class="modal-create-btn">
                     <span>NextPage</span>
                 </div>
             </a>
-
-        </section>
     </main>
 
     <script src="MainPageModal.js"></script>

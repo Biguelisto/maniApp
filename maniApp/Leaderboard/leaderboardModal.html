@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" href="../titleBar.css">
+    <link rel="stylesheet" href="leaderboard.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="songcard.css">
+    <title>Osu Tracker</title>
+</head>
+
+<body>
+    <!--Necessary titleBar HTML-->
+    <div class="titleBar">
+        <div class="header-logo"><img src="../assets/maniapplogo.png" alt="logo"></div>
+        <div class="minimizeWindowButton" title="Minimize">₋</div>
+        <div class="maximizeWindowButton" title="Maximizar">▢</div>
+        <div class="closeWindowButton" title="Close">✕</div>
+    </div>
+    <div class="header-divider"></div>
+    <script src="../titleBar.js"></script>
+    <!--Necessary titleBar HTML-->
+
+    </header>
+    <!--NAVBAR-->
+    <main class="app">
+        <div class="hudHeaderContainer">
+            <ul class="statsList">
+                <li class="stats-rank">RANK</li>
+                <li class="stats-score">SCORE</li>
+                <li class="stats-accuracy">ACCURACY</li>
+                <li class="stats-player">PLAYER</li>
+                <li class="stats-MODS">MODS</li>
+                <li class="stats-max_combo">MAX COMBO</li>
+                <li class="stats-MAX">MARVELOUS</li>
+                <li class="stats-Perfect">PERFECT</li>
+                <li class="stats-Great">GREAT</li>
+                <li class="stats-Good">GOOD</li>
+                <li class="stats-Bad">BAD</li>
+                <li class="stats-MISSES">MISSES</li>
+            </ul>
+        </div>
+        <div class="lbContainer">
+
+            <div class="scoresContainer" onclick="expandScore()">
+                <li class="rank">
+                    <div class="rank-number">#1</div>
+                    <div class="rank-ico">
+                        <img src="https://osu.ppy.sh/assets/images/GradeSmall-S.3b4498a9.svg" alt="Grade">
+                    </div>
+                </li>
+
+                <div class="score">962.103</div>
+                <div class="accuracy">99,30%</div>
+
+                <div class="player">
+                    <div class="player-ico">
+                        <img src="https://i.pinimg.com/736x/70/5c/de/705cdeb0a41a5c4c86dd71bb6c488fe8.jpg"
+                            alt="Icon do Player">
+                    </div>
+                    <div class="container-FlagName">
+                        <div class="flagplayer">
+                            <img src="https://i.postimg.cc/tTFTV9nw/bandeira-do-brasil.webp" alt="country">
+                        </div>
+                    </div>
+                    <div class="container-PlayerName">
+                        <div class="player-name">Biguel</div>
+                    </div>
+                </div>
+                <div class="MODS">MR</div>
+                <div class="max_combo">6.323x</div>
+                <div class="MAX">8.789</div>
+                <div class="Perfect">4.019</div>
+                <div class="Great">139</div>
+                <div class="Good">23</div>
+                <div class="Bad">10</div>
+                <div class="MISSES">20</div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="leaderboard.js"></script>
+</body>
+
+</html>

@@ -512,3 +512,16 @@ dialog[open]::backdrop {
     box-sizing: border-box;
 }
 
+.lobby-id-error {
+    color: red;
+    position: absolute;
+    top: 78%;
+    left: 5%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.lobby-id-error.show {
+    opacity: 1;
+}
