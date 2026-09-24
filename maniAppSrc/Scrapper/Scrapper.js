@@ -9,25 +9,6 @@ const { ScrapeSearch } = require('./Resources/scrape-search.js')
 
 
 
-
-let ScrappingWindow = null
-app.whenReady().then(() => {
-    ScrappingWindow = new BrowserWindow({
-        show: false,
-        frame: false,
-        sandbox: true,
-
-        webPreferences: {
-            contextIsolation: true,
-            offscreen: true,
-        }
-    })
-
-    ScrappingWindow.webContents.setFrameRate(240)
-})
-
-
-
 let queue = Promise.resolve()
 function enqueue(fn) {
     const run = queue.then(() => fn())
@@ -60,9 +41,4 @@ ipcMain.handle("ScrapeMatch", async (_, MatchURL) => {
 //! ALL URLS CAN ALSO BE IDS
 //* Call example: window.Scrapper.ScrapeMatch(MatchURL / MatchID)
 
-function CloseScrapper() {
-    ScrappingWindow.close()
-}
-module.exports = {
-    CloseScrapper
-}
+module.exports = {}
