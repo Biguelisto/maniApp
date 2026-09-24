@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
+
+.hudHeaderContainer {
+    height: 18px;
+    width: 845px;
+    background-color: #25191E;
+    display: flex;
+    align-items: center;
+    font-family: 'Allerta', sans-serif;
+    
+}
+
+.statsList {
+    display: flex;
+    height: 80%;
+    width: 845px;
+    align-items: center;
+    background-color: #25191E;
+    color: #ffffff;
+    font-size: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.stats-rank {
+    height: 100%;
+    width: 82px;
+    display: flex;
+    padding-left: 12px;
+    align-items: center;
+}
+
+.stats-player {
+    height: 100%;
+    width: 168px;
+    display: flex;
+    align-items: center;
+}
+
+.stats-score {
+    height: 100%;
+    width: 10%;
+}
+
+.stats-accuracy {
+    height: 100%;
+    width: 10%;
+}
+
+.stats-max_combo {
+    height: 100%;
+    width: 10%;
+}
+
+.lbContainer {
+    height: 555px;
+    width: 845px;
+    background-color: #25191e;
+    overflow-y: auto;
+    scrollbar-width: none;
+    background-image:
+        linear-gradient(#25191eba, #25191e),
+        url('../assets/Osu-triangles.svg.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease, background-position 0.4s ease-in-out;
+    user-select: none;
+    color: #ffffff;
+}
+
+.lbContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.scoresContainer {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    align-items: center;
+    background-color: rgba(73, 47, 59, 0.85);
+    margin-bottom: 3px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    font-size: 10px;
+}
+
+.scoresContainer:nth-child(even) {
+    background-color: rgba(66, 44, 54, 0.85);
+}
+
+.scoresContainer:hover {
+    background-color: rgba(85, 60, 70, 0.9);
+}
+
+.rank {
+    height: 100%;
+    width: 82px;
+    align-items: center;
+    display: flex;
+}
+
+.rank-number {
+    height: 100%;
+    width: 50%;
+    font-size: 220%;
+    margin-left: 3px;
+    color: #FF66AB;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rank-ico {
+    height: 85%;
+    width: 40%;
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.rank-ico img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.player {
+    height: 100%;
+    width: 168px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.player-ico {
+    height: 100%;
+    width: 35px;
+
+    border-radius: 12px;
+}
+
+.player-ico img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.container-FlagName {
+    display: flex;
+    width: 20px;
+    height: 100%;
+    align-items: center;
+}
+
+.container-PlayerName {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.flagplayer {
+    background-color: rgba(255, 255, 255, 0);
+    display: flex;
+    height: 15px;
+    width: 30px;
+    border-radius: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.flagplayer img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 10%;
+}
+
+.score,
+.accuracy,
+.max_combo,
+.MAX,
+.Perfect,
+.Great,
+.Good,
+.Bad,
+.MISSES,
+.MODS,
+.stats-score,
+.stats-accuracy,
+.stats-max_combo,
+.stats-MAX,
+.stats-Perfect,
+.stats-Great,
+.stats-Good,
+.stats-Bad,
+.stats-MISSES,
+.stats-MODS {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 1px 1px #1C1719;
+    font-family: 'Allerta', sans-serif;
+}
