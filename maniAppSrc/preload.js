@@ -7,6 +7,16 @@ contextBridge.exposeInMainWorld("titleBarAPI", {
     Maximize: () => ipcRenderer.send("window-maximize")
 })
 
+contextBridge.exposeInMainWorld("MatchCache", {
+    WriteMatchCache: (JSONStr) => ipcRenderer.invoke("WriteMatchCache", JSONStr),
+    ReadMatchCache: (ID) => ipcRenderer.invoke("ReadMatchCache", ID),
+    RemoveMatchCache: (ID) => ipcRenderer.invoke("RemoveMatchCache", ID),
+    ClearMatchCache: () => ipcRenderer.invoke("ClearMatchCache"),
+    GetFullMatchCache: () => ipcRenderer.invoke("GetFullMatchCache"),
+    CallBatches: (Batch) => ipcRenderer.invoke("CallBatches", Batch),
+    GetCacheSize: () => ipcRenderer.invoke("GetCacheSize")
+})
+
 contextBridge.exposeInMainWorld("Scrapper", {
     ScrapeUser: (URL, Mode, Achievements) => ipcRenderer.invoke("ScrapeUser", URL, Mode, Achievements),
     ScrapeSearch: (Query) => ipcRenderer. invoke("ScrapeSearch", Query),

@@ -9,7 +9,8 @@ const DefaultHTML = 'maniApp/MainPage/index.html'
 
 // Running other files
 // const { CloseScrapper } = require("./scrapper/scrapper.js")
-const { CloseScrapper } = require("./scrapper/scrapper")
+require("./scrapper/scrapper")
+const { CacheStart, CacheEnd } = require("./matchcache/cache")
 
 
 
@@ -55,6 +56,8 @@ app.whenReady().then(() => {
         }
     })
 
+    CacheStart();
+
     win.loadFile(DefaultHTML)
     const isDev = !app.isPackaged
 
@@ -88,7 +91,6 @@ app.whenReady().then(() => {
     
 
     win.addListener("closed", () => {
-        CloseScrapper()
     })
 })
 
