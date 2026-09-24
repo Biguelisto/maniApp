@@ -1,4 +1,4 @@
-import { ClearMatchCache, GetFullMatchCache, MatchCache, MatchCacheBatch, MatchCacheBatchCall, ReadMatchCache, RemoveMatchCache, WriteMatchCache } from "./APIWrapper.js"
+import { GetMatch, ClearMatchCache, GetFullMatchCache, MatchCache, MatchCacheBatch, MatchCacheBatchCall, ReadMatchCache, RemoveMatchCache, WriteMatchCache } from "./APIWrapper.js"
 
 const CloseButton = document.querySelector(".closeWindowButton")
 CloseButton.addEventListener("click", (e) => {
@@ -21,3 +21,8 @@ const MinimizeButton = document.querySelector(".minimizeWindowButton")
 MinimizeButton.addEventListener("click", (e) => {
     window.titleBarAPI.Minimize()
 })
+
+setTimeout(async () => {
+    // 121874899
+    console.log(await GetMatch(121860061));
+}, 1000)
