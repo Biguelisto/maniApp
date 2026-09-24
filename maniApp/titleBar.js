@@ -1,4 +1,4 @@
-import { ClearMatchCache, GetFullMatchCache, MatchCache, MatchCacheBatch, MatchCacheBatchCall, ReadMatchCache, RemoveMatchCache, WriteMatchCache } from "./APIWrapper.js"
+import { GetMatch, ClearMatchCache, GetFullMatchCache, MatchCache, MatchCacheBatch, MatchCacheBatchCall, ReadMatchCache, RemoveMatchCache, WriteMatchCache } from "./APIWrapper.js"
 
 const CloseButton = document.querySelector(".closeWindowButton")
 CloseButton.addEventListener("click", (e) => {
@@ -23,13 +23,6 @@ MinimizeButton.addEventListener("click", (e) => {
 })
 
 setTimeout(async () => {
-    const Batch = new MatchCacheBatch()
-        .AddCall("Clear")
-        .AddCall("Write", (new MatchCache([2], "First call in the batch", "N/A")).Serialize())
-        .AddCall("Write", (new MatchCache([2], "Second call in the batch", "N/A")).Serialize())
-        .AddCall("Getfull")
-        .AddCall("Cachesize")
-        .AddCall("Read", 2)
-    const Returns = await MatchCacheBatchCall(Batch)
-    console.log(Returns[5]) // The "CacheSize"
+    // 121874899
+    console.log(await GetMatch(121860061));
 }, 1000)
