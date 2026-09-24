@@ -46,7 +46,7 @@ app.whenReady().then(() => {
         width: 900,
         height: 600,
         frame: false,
-        thickFrame: true,
+        thickFrame: false,
         titleBarStyle: 'hidden',
         roundedCorners: true,
         useContentSize: true,
