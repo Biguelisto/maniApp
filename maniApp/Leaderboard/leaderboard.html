@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' https:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    
     <link rel="stylesheet" href="../titleBar.css">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="songcard.css">
@@ -23,7 +24,7 @@
         <div class="closeWindowButton" title="Close">✕</div>
     </div>
     <div class="header-divider"></div>
-    <script src="../titleBar.js"></script>
+    <script src="../titleBar.js" type="module"></script>
     <!--Necessary titleBar HTML-->
 
     </header>
@@ -31,7 +32,7 @@
     <main class="app">
         <div class="match-header">
             <img src="../assets/ricechibishower.png" alt="Capa da Match" class="match-avatar">
-            <span class="match-name">Eu estou com muito tesão</span>
+            <span class="match-name"></span>
         </div>
         <nav class="navbar">
             <ul class="nav-list">
@@ -172,7 +173,6 @@
 
     </main>
 
-    <script src="leaderboard.js"></script>
     <script src="leaderboardModal.js"></script>
 
 </body>

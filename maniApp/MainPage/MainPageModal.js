@@ -23,7 +23,7 @@ const lobbyIdError = modal.querySelector('.lobby-id-error');
 const matchGrid = document.querySelector('.match-grid');
 
 // Cria um novo botão do grid
-function create_new_button(match) {
+function create_new_button(match, id) {
     const nameDiv = document.createElement('div');
     nameDiv.className = 'match-card-name';
     nameDiv.textContent = match.lobbyName;
@@ -40,16 +40,22 @@ function create_new_button(match) {
 
     const cardDiv = document.createElement('div');
     cardDiv.className = "match-card";
+    cardDiv.dataset.id = id;
     cardDiv.appendChild(imgDiv);
     cardDiv.appendChild(nameDiv);
     cardDiv.appendChild(authorDiv);
+
+    cardDiv.addEventListener('click', () => {
+        console.log(id);
+        window.location.href = `../Overview/overview.html?id=${id}`;
+    })
 
     matchGrid.appendChild(cardDiv);
 }
 
 // Criando match
 const submitButton = modal.querySelector('.modal-create-btn')
-submitButton.addEventListener('click', () => {
+submitButton.addEventListener('click', async () => {
     const name = LobbyName.value;
     const id = LobbyId.value;
     const banner = LobbyBanner.value;
@@ -72,9 +78,9 @@ submitButton.addEventListener('click', () => {
     };
 
     // Criação das divs no html
-    create_new_button(match);
     const cache_match = new MatchCache(match.lobbyId, match.lobbyName, match.lobbyBanner);
-    WriteMatchCache(cache_match);
+    const newId = await WriteMatchCache(cache_match);
+    create_new_button(match, newId);
     console.log(match);
 
     // limpa os campos após criar match
@@ -94,6 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             lobbyId: cache_key.MatchIDs,
             lobbyBanner: cache_key.Banner
         }
-        create_new_button(match);
+        create_new_button(match, cache_key.ID);
+        console.log(match, cache_key.ID);
     }
 })
