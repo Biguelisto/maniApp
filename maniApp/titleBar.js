@@ -24,7 +24,7 @@ MinimizeButton.addEventListener("click", (e) => {
 
 setTimeout(async () => {
     // 121874899
-    console.log(await GetMatch(121860061));
+    //console.log(await GetMatch(121860061));
 }, 1000)
 
 //PROVISÓRIO PQ ESSE É O UNICO JS QUE ACESSA TUDO

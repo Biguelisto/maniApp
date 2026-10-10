@@ -45,7 +45,7 @@
     height: 245px;
     width: 100%;
     max-width: 560px;
-    background-color: rgba(0, 0, 0, 0.861);
+    background-color: rgba(0, 0, 0, 0.39);
     border-radius: 14px;
     overflow: hidden;
     justify-self: center;
@@ -60,12 +60,12 @@
 }
 
 .song-card-container:hover {
-    transform: scale(0.96);
+    transform: scale(0.99);
     z-index: 10;
 }
 
 .song-card-container:hover {
-    outline: 3px solid #ffffff7f;
+    outline: 3px solid #ffffffab;
     outline-offset: 2px;
     z-index: 10;
 }
@@ -83,13 +83,13 @@
 
 .song-card-left::after {
     content: '';
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.501);
     z-index: 1;
+    position: absolute;
 }
 
 .song-card-top,
@@ -107,7 +107,8 @@
 .song-card-top {
     display: flex;
     height: auto;
-    font-size: 2.0rem;
+    width: 90%;
+    font-size: 1.95rem;
     line-height: 0.7;
     padding: 0 0.7rem;
     background-color: rgba(3, 35, 176, 0);
@@ -140,13 +141,14 @@
     display: flex;
     align-items: flex-start;
     height: auto;
-    line-height: 0.7;
-    font-size: 3rem;
+    line-height: 0.9;
+    font-size: 2rem;
     padding: 0 0.7rem;
     background-color: rgba(255, 225, 0, 0);
     margin-bottom: 7px;
     color: #ffffff;
     font-weight: 500;
+    width: 90%;
 }
 
 .song-card-right {
@@ -154,8 +156,13 @@
     flex-direction: column;
     width: 10%;
     height: 100%;
-    background-color: rgba(255, 72, 102, 0);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.35);
 }
+
 
 .song-card-grid {
     display: flex;
@@ -164,14 +171,24 @@
     align-items: center;
     width: 100%;
     height: 25%;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.651);
     color: white;
     font-size: 0.7rem;
 }
 
-.song-card-icon {}
+.song-card-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    overflow: hidden;
+}
 
-.song-card-text {}
+.song-card-text {
+    font-size: 0.5rem;
+    align-items: center;
+    font-family: 'gotham', sans-serif;
+    color:#d0d0d0
+}
 
 .song-count-badge {
     display: flex;
