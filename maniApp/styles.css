@@ -6,6 +6,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
+
 body {
     background-color: #1C1719;
     margin: 0;
@@ -17,6 +18,18 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.page {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    overflow: auto;
+}
+
 .app {
     width: 1100px;
     min-height: 980px;
@@ -24,7 +37,7 @@ body {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 5px auto;
 }
 
 .app-top-bar {
@@ -43,6 +56,8 @@ body {
     align-items: flex-start;
     margin-left: 50px;
 }
+
+
 
 .title-wrapper {
     display: inline-block;
@@ -196,6 +211,29 @@ img {
     -moz-user-drag: none;
     -o-user-drag: none;
     user-select: none;
+}
+
+/*Scrollbar*/
+.page::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.page::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.page::-webkit-scrollbar-thumb {
+    background: rgba(255, 102, 170, 0.4);
+    border-radius: 8px;
+}
+
+.page::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 102, 170, 0.7);
+}
+
+.page::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 /*MODAL*/

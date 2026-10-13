@@ -43,10 +43,10 @@ app.whenReady().then(() => {
 
     const win = new BrowserWindow({
         show: true,
-        width: 900,
-        height: 600,
+        width: 1280,
+        height: 720,
         frame: false,
-        thickFrame: false,
+        thickFrame: true,
         titleBarStyle: 'hidden',
         roundedCorners: true,
         useContentSize: true,

@@ -50,3 +50,9 @@ async function loadMatch() {
 if (id) {
     loadMatch();
 }
+
+//Prevenir que o clique do meio abra uma nova aba
+const logoLink = document.querySelector('.header-logo a');
+logoLink.addEventListener('auxclick', (e) => {
+    e.preventDefault();
+});

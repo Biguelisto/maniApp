@@ -15,51 +15,53 @@
 
     <!--Necessary titleBar HTML-->
     <div class="titleBar">
-        <div class="header-logo"><img src="../assets/maniapplogo.png" alt="logo"></div>
+        <div class="header-logo"><a href="../mainPage/index.html"><img src="../assets/maniapplogo.png" alt="logo"></a>
+        </div>
         <div class="minimizeWindowButton" title="Minimize">₋</div>
         <div class="maximizeWindowButton" title="Maximizar">▢</div>
         <div class="closeWindowButton" title="Close">✕</div>
     </div>
-    <div class="header-divider"></div>
     <script src="../titleBar.js" type="module"></script>
     <!--Necessary titleBar HTML-->
 
     </header>
     <!--NAVBAR-->
-    <main class="app">
-        <div class="match-header">
-            <img src="" alt="Capa da Match" class="match-avatar">
-            <span class="match-name"></span>
-        </div>
-        <nav class="navbar">
-            <ul class="nav-list">
-                <li class="nav-item active">
-                    <a href="../Overview/overview.html">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a href="../Leaderboard/leaderboard.html">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="../Players/players.html">Players</a>
-                </li>
-            </ul>
-        </nav>
+    <div class="page">
+        <main class="app">
+            <div class="match-header">
+                <img src="" alt="Capa da Match" class="match-avatar">
+                <span class="match-name"></span>
+            </div>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="../Overview/overview.html">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../Leaderboard/leaderboard.html">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../Players/players.html">Players</a>
+                    </li>
+                </ul>
+            </nav>
 
-        <!--Top Bar-->
-        <div class="app-top-bar">
-            <div class="app-title-area">
-                <div class="title-wrapper">
-                    <p>Dashboard</p>
-                    <div class="app-title-underline"></div>
+            <!--Top Bar-->
+            <div class="app-top-bar">
+                <div class="app-title-area">
+                    <div class="title-wrapper">
+                        <p>Dashboard</p>
+                        <div class="app-title-underline"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="dashboard-container">
-            <div class="dashboard-container-left-side"></div>
-        </div>
+            <div class="dashboard-container">
+                <div class="dashboard-container-left-side"></div>
+            </div>
 
-    </main>
+        </main>
+    </div>
 
     <script src="./overview.js" type="module"></script>
 </body>
