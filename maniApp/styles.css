@@ -18,7 +18,8 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     overflow: hidden;
 }
@@ -236,48 +237,40 @@ img {
     background: transparent;
 }
 
-/*MODAL*/
 dialog {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
     border: none;
-    border-radius: 8px;
-    padding: 40px 25px;
-    background: #382E32;
-    color: white;
+    border-radius: 0;
+    inset: 0;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 500px;
-    height: 645px;
     max-height: 90vh;
     overflow-y: auto;
-    margin: auto;
-    position: fixed;
-    inset: 0;
+    background: #382E32;
+    border-radius: 8px;
+    padding: 40px 25px;
+    display: flex;
     flex-direction: column;
     gap: 15px;
-
-    opacity: 0;
-    transform: scale(0.9);
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease,
-        display 0.3s allow-discrete,
-        overlay 0.3s allow-discrete;
 }
 
 dialog[open] {
     display: flex;
     opacity: 1;
-    transform: scale(1);
 }
 
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.806);
-}
-
-@starting-style {
-    dialog[open] {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-}
 
 dialog::backdrop {
     background: rgba(0, 0, 0, 0.806);
@@ -289,10 +282,29 @@ dialog[open]::backdrop {
     opacity: 1;
 }
 
-@starting-style {
-    dialog[open]::backdrop {
-        opacity: 0;
-    }
+#banner-picker-modal .modal-content {
+    width: 500px;
+    min-height: 250px;
+    height: auto;
+    padding: 40px 25px;
+    gap: 20px;
+}
+
+#banner-picker-modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+#banner-picker-modal .modal-create-btn {
+    width: 220px;
+    height: 55px;
+    font-size: 1.3rem;
+    margin: 10px auto 0 auto;
+}
+
+#banner-picker-modal .modal-input {
+    font-size: 1.1rem;
+    padding: 12px 15px 8px 12px;
+    /* padding-right normal, sem espaço pro ícone */
 }
 
 .modal-close {
@@ -363,6 +375,21 @@ dialog[open]::backdrop {
     opacity: 1;
 }
 
+/* Quando a área tem preview, a imagem preenche tudo */
+.modal-upload-area.has-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    border-radius: 48px;
+    /* acompanha o border-radius: 50px da área, menos 2px da borda */
+}
+
+/* Remove o hover de zoom quando está em modo preview */
+.modal-upload-area.has-preview:hover img {
+    transform: none;
+}
+
 .modal-input {
     background: #2A2226;
     border: none;
@@ -381,6 +408,25 @@ dialog[open]::backdrop {
     opacity: 0.7;
 }
 
+.modal-input[readonly] {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    pointer-events: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    font-size: 0.6rem;
+    color: #B8A8B0;
+    margin-top: -12px;
+}
+
+.modal-input[readonly]::placeholder {
+    color: #6A5A62;
+    opacity: 1;
+}
+
 .modal-input:focus {
     border-bottom-color: #ff88bb;
 }
@@ -391,7 +437,6 @@ dialog[open]::backdrop {
     gap: 10px;
     width: 100%;
     position: relative;
-    width: 100%;
 }
 
 .modal-input-wrapper .modal-input {
@@ -562,4 +607,51 @@ dialog[open]::backdrop {
 
 .lobby-id-error.show {
     opacity: 1;
+}
+
+.modal-window-controls {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    z-index: 10000;
+    height: 40px;
+    box-sizing: border-box;
+    justify-content: flex-end;
+}
+
+/* Botões — mesmos valores da titleBar */
+.modal-window-controls .minimizeWindowButton,
+.modal-window-controls .maximizeWindowButton,
+.modal-window-controls .closeWindowButton {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    color: #FF66AA;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-window-controls .minimizeWindowButton {
+    font-size: 36px;
+    transform: translateY(-4px);
+}
+
+.modal-window-controls .maximizeWindowButton {
+    font-size: 14px;
+    transform: translateY(2px);
+}
+
+.modal-window-controls .closeWindowButton {
+    font-size: 14px;
+    transform: translateY(2px);
 }

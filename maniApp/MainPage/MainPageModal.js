@@ -5,12 +5,7 @@ const modal = document.getElementById('create-match-modal');
 
 // abre modal
 const openButton = document.querySelector('.match-card-create')
-    openButton.addEventListener('click', () => { modal.showModal(); }
-);
-
-// fecha modal
-const closeButton = modal.querySelector('.modal-close')
-    closeButton.addEventListener('click', () => { modal.close(); }
+openButton.addEventListener('click', () => { modal.showModal(); }
 );
 
 // pega valores dos inputs usando data-field
@@ -21,6 +16,65 @@ const LobbyBanner = modal.querySelector('[data-field="lobbyBanner"]')
 // validação do id do lobby
 const lobbyIdError = modal.querySelector('.lobby-id-error');
 const matchGrid = document.querySelector('.match-grid');
+
+// banner Picker (Abre segundo Modal)
+const bannerPickerModal = document.getElementById('banner-picker-modal');
+const openBannerPicker = document.getElementById('open-banner-picker');
+openBannerPicker.addEventListener('click', () => { bannerPickerModal.showModal(); });
+
+// fecha modal do banner picker
+const bannerPickerClose = bannerPickerModal.querySelector('.modal-close');
+bannerPickerClose.addEventListener('click', () => { bannerPickerModal.close(); });
+
+// manda valor do input do banner picker para o input do lobby banner
+const bannerPickerInput = bannerPickerModal.querySelector('[data-field="bannerPickerInput"]');
+const bannerPickerConfirm = document.getElementById('banner-picker-confirm');
+
+// pega a área de upload e a imagem de preview
+const uploadArea = document.getElementById('open-banner-picker');
+const bannerPreviewImg = document.getElementById('banner-preview-img');
+const default_icon = '../assets/import.png';
+
+// atualiza o input do lobby banner e o preview da imagem
+bannerPickerConfirm.addEventListener('click', () => {
+    const valor = bannerPickerInput.value.trim();
+    LobbyBanner.value = valor;
+    bannerPickerInput.value = "";
+    bannerPickerModal.close();
+
+    // atualiza o preview
+    if (valor) {
+        bannerPreviewImg.src = valor;
+        bannerPreviewImg.alt = 'banner preview';
+        uploadArea.classList.add('has-preview');
+    } else {
+        // se confirmar vazio, volta ao ícone
+        bannerPreviewImg.src = default_icon;
+        bannerPreviewImg.alt = 'import icon';
+        uploadArea.classList.remove('has-preview');
+    }
+});
+
+// fecha modal principal
+const closeButton = modal.querySelector('.modal-close');
+closeButton.addEventListener('click', () => {
+    modal.close();
+});
+
+// limpa os campos sempre que o modal principal for fechado (✕, Esc, etc...)
+modal.addEventListener('close', () => {
+    // limpa os inputs
+    LobbyName.value = "";
+    LobbyId.value = "";
+    LobbyBanner.value = "";
+    bannerPickerInput.value = "";
+
+    // restaura o preview
+    bannerPreviewImg.src = default_icon;
+    bannerPreviewImg.alt = 'import icon';
+    uploadArea.classList.remove('has-preview');
+});
+
 
 // Cria um novo botão do grid
 function create_new_button(match, id) {
@@ -60,7 +114,7 @@ submitButton.addEventListener('click', async () => {
     const id = LobbyId.value;
     const banner = LobbyBanner.value;
 
-    // Lógica da validação do id do lobby
+    // Validação do ID do lobby (apenas números)
     const regexSoNumeros = /^[0-9]+$/;
     if (!regexSoNumeros.test(id)) {
         lobbyIdError.classList.add('show');
@@ -70,26 +124,22 @@ submitButton.addEventListener('click', async () => {
         return;
     }
 
-    // cria um objeto com os valores dos inputs
-    const match = {
-        lobbyName: name,
-        lobbyId: id,
-        lobbyBanner: banner
+    // Cria objeto match e escreve no cache
+    const match = { 
+        lobbyName: name, 
+        lobbyId: id, 
+        lobbyBanner: banner 
     };
 
-    // Criação das divs no html
+    // Cria objeto MatchCache e escreve no cache
     const cache_match = new MatchCache(match.lobbyId, match.lobbyName, match.lobbyBanner);
     const newId = await WriteMatchCache(cache_match);
     create_new_button(match, newId);
+
     console.log(match);
 
-    // limpa os campos após criar match
-    LobbyName.value = "";
-    LobbyId.value = "";
-    LobbyBanner.value = "";
-
     modal.close();
-})
+});
 
 // Carrega todos os matches guardados no cache
 document.addEventListener("DOMContentLoaded", async () => {

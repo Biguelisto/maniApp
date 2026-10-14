@@ -1,26 +1,31 @@
 import { GetMatch, ClearMatchCache, GetFullMatchCache, MatchCache, MatchCacheBatch, MatchCacheBatchCall, ReadMatchCache, RemoveMatchCache, WriteMatchCache } from "./APIWrapper.js"
 
-const CloseButton = document.querySelector(".closeWindowButton")
-CloseButton.addEventListener("click", (e) => {
-    window.titleBarAPI.Close()
-})
+const CloseButton = document.querySelectorAll(".closeWindowButton").forEach(CloseButton => {
+    CloseButton.addEventListener("click", (e) => {
+        window.titleBarAPI.Close();
+    });
+});
 
-const MaximizeButton = document.querySelector(".maximizeWindowButton")
-let isMaximized = false
-MaximizeButton.addEventListener("click", (e) => {
-    window.titleBarAPI.Maximize()
-    isMaximized = !isMaximized
-    if (isMaximized) {
-        MaximizeButton.textContent = "❐"
-        return
-    }
-    MaximizeButton.textContent = "▢"
-})
+const MaximizeButton = document.querySelectorAll(".maximizeWindowButton").forEach(maximizeButton => {
+//let isMaximized = false;
+    maximizeButton.addEventListener("click", (e) => {
+        window.titleBarAPI.Maximize();
+        /*
+        isMaximized = !isMaximized;
+        if (isMaximized) {
+            maximizeButton.textContent = "❐";
+            return;
+        }
+        maximizeButton.textContent = "▢";
+        */
+    });
+});
 
-const MinimizeButton = document.querySelector(".minimizeWindowButton")
-MinimizeButton.addEventListener("click", (e) => {
-    window.titleBarAPI.Minimize()
-})
+const MinimizeButton = document.querySelectorAll(".minimizeWindowButton").forEach(minimizeButton => {
+    minimizeButton.addEventListener("click", () => {
+        window.titleBarAPI.Minimize();
+    });
+});
 
 setTimeout(async () => {
     // 121874899

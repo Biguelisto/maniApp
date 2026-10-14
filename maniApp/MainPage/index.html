@@ -15,81 +15,114 @@
 
     <!--Necessary titleBar HTML-->
     <div class="titleBar">
-        <div class="header-logo"><a href="../mainPage/index.html"><img src="../assets/maniapplogo.png" alt="logo"></a></div>
+        <div class="header-logo"><a href="../mainPage/index.html"><img src="../assets/maniapplogo.png" alt="logo"></a>
+        </div>
         <div class="minimizeWindowButton" title="Minimize">₋</div>
         <div class="maximizeWindowButton" title="Maximizar">▢</div>
         <div class="closeWindowButton" title="Close">✕</div>
     </div>
     <script src="../titleBar.js" type="module"></script>
     <!--Necessary titleBar HTML-->
-<div class="page">
-    <main class="app">
+    <div class="page">
+        <main class="app">
 
-        <!--Top Bar-->
-        <div class="app-top-bar">
-            <div class="app-title-area">
-                <div class="title-wrapper">
-                    <p>Recent Matches</p>
+            <!--Top Bar-->
+            <div class="app-top-bar">
+                <div class="app-title-area">
+                    <div class="title-wrapper">
+                        <p>Recent Matches</p>
 
-                    <div class="app-title-underline"></div>
+                        <div class="app-title-underline"></div>
+                    </div>
+                </div>
+                <div class="app-menu-area">
+                    <nav class="menu">
+                        <div class="menu-item"><img src="..\assets\search.png" alt="search"></div>
+                        <div class="menu-item"><img src="..\assets\import.png" alt="import"></div>
+                        <div class="menu-item"><img src="..\assets\hamburguer.png" alt="menu"></div>
+                    </nav>
                 </div>
             </div>
-            <div class="app-menu-area">
-                <nav class="menu">
-                    <div class="menu-item"><img src="..\assets\search.png" alt="search"></div>
-                    <div class="menu-item"><img src="..\assets\import.png" alt="import"></div>
-                    <div class="menu-item"><img src="..\assets\hamburguer.png" alt="menu"></div>
-                </nav>
-            </div>
-        </div>
 
-        <!-- Match Grid -->
-        <section class="match-grid">
+            <!-- Match Grid -->
+            <section class="match-grid">
 
-            <!-- Create New Match Card -->
-            <div class="match-card match-card-create" data-modal="create-match-modal">
-                <div class="match-card-image match-card-image-create">
-                    <img src="..\assets\plusicon.png" alt="plus">
+                <!-- Create New Match Card -->
+                <div class="match-card match-card-create" data-modal="create-match-modal">
+                    <div class="match-card-image match-card-image-create">
+                        <img src="..\assets\plusicon.png" alt="plus">
+                    </div>
+                    <div class="match-card-name">Create New Match</div>
+                    <div class="match-card-author"></div>
                 </div>
-                <div class="match-card-name">Create New Match</div>
-                <div class="match-card-author"></div>
-            </div>
 
-            <!-- MODAL -->
-            <dialog id="create-match-modal">
-                <button class="modal-close" data-modal="create-match-modal">✕</button>
+                <!-- MODAL -->
+                <dialog id="create-match-modal">
+                    <div class="modal-window-controls">
+                        <div class="minimizeWindowButton">₋</div>
+                        <div class="maximizeWindowButton">▢</div>
+                        <div class="closeWindowButton">✕</div>
+                    </div>
 
-                <p class="modal-title modal-title-center">Upload Banner</p>
-                <div class="modal-upload-area">
-                    <img src="..\assets\import.png" alt="import icon">
+                    <div class="modal-content">
+
+                        <button class="modal-close" data-modal="create-match-modal">✕</button>
+
+                        <p class="modal-title modal-title-center">Upload Banner</p>
+                        <div class="modal-upload-area" id="open-banner-picker">
+                            <img src="..\assets\import.png" alt="import icon" id="banner-preview-img">
+                        </div>
+                        <input class="modal-input" data-field="lobbyBanner" type="text" placeholder="" readonly>
+
+                        <p class="modal-title">Nome da match</p>
+                        <input class="modal-input" data-field="lobbyName" type="text"
+                            placeholder="Minha Primeira Match...">
+
+                        <p class="modal-title">ID/Url do lobby</p>
+                        <div class="modal-input-wrapper">
+                            <input class="modal-input" data-field="lobbyId" type="text" placeholder="118999927...">
+                            <img src="..\assets\add.png" alt="add" class="modal-add-icon">
+                        </div>
+                        <span class="lobby-id-error">Insira um id válido</span>
+
+                        <button class="modal-create-btn"><span>Criar Match</span></button>
+                    </div>
+                </dialog>
+
+                <!-- Banner Picker -->
+                <dialog id="banner-picker-modal">
+                    <div class="modal-window-controls">
+                        <div class="minimizeWindowButton">₋</div>
+                        <div class="maximizeWindowButton">▢</div>
+                        <div class="closeWindowButton">✕</div>
+                    </div>
+
+                    <div class="modal-content">
+                        <button class="modal-close" data-modal="banner-picker-modal">✕</button>
+
+                        <p class="modal-title modal-title-center">Escolher Banner</p>
+
+                        <input class="modal-input" data-field="bannerPickerInput" type="text"
+                            placeholder="Url do banner...">
+
+                        <button class="modal-create-btn" id="banner-picker-confirm">
+                            <span>Confirmar</span>
+                        </button>
+                    </div>
+                </dialog>
+
+                <!-- Card -->
+                <div class="match-card">
+                    <div class="match-card-image">
+                        <img src="..\assets\ricechibishower.png" alt="match">
+                    </div>
+                    <div class="match-card-name">Jotinha ama femboys</div>
+                    <div class="match-card-author">Wide</div>
                 </div>
-                <input class="modal-input" data-field="lobbyBanner" type="text" placeholder="Url do banner...">
 
-                <p class="modal-title">Nome da match</p>
-                <input class="modal-input" data-field="lobbyName" type="text" placeholder="Minha Primeira Match...">
-
-                <p class="modal-title">ID/Url do lobby</p>
-                <div class="modal-input-wrapper">
-                    <input class="modal-input" data-field="lobbyId" type="text" placeholder="118999927...">
-                    <img src="..\assets\add.png" alt="add" class="modal-add-icon">
-                </div>
-                <span class="lobby-id-error">Insira um id válido</span>
-
-                <button class="modal-create-btn"><span>Criar Match</span></button>
-            </dialog>
-
-            <!-- Card -->
-            <div class="match-card">
-                <div class="match-card-image">
-                    <img src="..\assets\ricechibishower.png" alt="match">
-                </div>
-                <div class="match-card-name">Jotinha ama femboys</div>
-                <div class="match-card-author">Wide</div>
-            </div>
-
-        </section>
-    </main>
-</div>
+            </section>
+        </main>
+    </div>
 
     <script src="MainPageModal.js" type="module"></script>
 </body>
